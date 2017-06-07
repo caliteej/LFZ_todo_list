@@ -1,24 +1,25 @@
 import React, { Component } from 'react';
 import listData from './data/todo_data';
-import { Link } from 'react-router-dom';
 
-class ViewAll extends Component {
+
+class ViewList extends Component {
 
     render(){
-        const listElements = listData.map((item, index) => {
+        const listElements = this.props.list.map((item, index)=> {
             return (
                 <li className="list-group-item" key={ index }>
-                    <Link to='/todo'>{ item.title }</Link>
-                    </li>);
+                    {`${ item.title } | completed: ${item.completed}`}
+                    <button onClick={ () => this.props.delete(index)}>Delete</button>
+                    <button onClick={ () => this.props.complete(index)}>{item.completed ? 'Restore' : 'Complete'}</button>
+                    </li>
             //anything can be used as the key as long as it is unique and loops through
+
+            );
         });
 
 
-
-        console.log('listElements: ', listElements);
         return (
             <div>
-                <h2>This is my list</h2>
                 <ul className="list-group">
                     {listElements}
                     {/*if data is an array JSX will automatically loop through and dynamically create items*/}
@@ -30,4 +31,4 @@ class ViewAll extends Component {
 
 }
 
-export default ViewAll;
+export default ViewList;

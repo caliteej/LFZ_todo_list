@@ -1,25 +1,65 @@
-import React from 'react';
-import todoData from './data/todo_data';
-import ViewAll from './view_all';
+import React, { Component } from 'react';
+import listData from './data/todo_data';
+import ViewList from './view_list';
 import AddForm from './add_form';
-import ViewOne from './view_one';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link
-} from 'react-router-dom';
 
-const App = () => (
-    <Router>
-    <div className="container">
-        <h1>To Do List</h1>
-        <Link className="btn btn-outline-success" to="/add-todo">Add Todo Item</Link>
 
-        <Route exact path="/" component={ViewAll}/>
-        <Route path="/add-todo" component={AddForm}/>
-        <Route path="/todo" component={ViewOne}/>
-    </div>
-    </Router>
-);
+
+class App extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            list: listData
+        }
+    }
+
+    addItem(item){
+        item.completed = false;
+        const { list } = this.state;
+        //makes our own copy of the list state
+
+
+        this.setState({
+            list: [ item, ...list]
+        });
+
+    }
+
+    deleteItem(index){
+        const { list } = this.state;
+        list.splice(index, 1);
+
+        this.setState({
+            list: [...list]
+        });
+    }
+
+    toggleComplete(index){
+        const { list } = this.state;
+
+        list[index].completed = !list[index].completed;
+
+        this.setState({
+            list: [...list]
+        });
+    }
+
+    render() {
+        return (
+        <div className="container">
+            <h1>To Do List</h1>
+            <AddForm add={ (item) => this.addItem(item)}/>
+            <ViewList
+                list={ this.state.list }
+                delete={ (index) => this.deleteItem(index) }
+                complete={(index) => this.toggleComplete(index)}
+            />
+            {/*passes data into the ViewList*/}
+
+        </div>
+        )
+    }
+};
 
 export default App;
