@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import listData from './data/todo_data';
 import ViewList from './view_list';
 import AddForm from './add_form';
+import deletedItems from './data/deleted_items';
 
 
 
@@ -10,7 +11,8 @@ class App extends Component {
         super(props);
 
         this.state = {
-            list: listData
+            list: listData,
+            deleted: deletedItems
         }
     }
 
