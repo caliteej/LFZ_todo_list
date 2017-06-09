@@ -1,13 +1,9 @@
 import React from 'react';
-import './app.css';
-import logo from './imgs/logo.svg';
+import ViewList from './view_list';
 
 const App = () => (
-    <div>
-        <div className="app">
-            <img src={logo} className="rotate"/>
-            <h1>Welcome to React!</h1>
-        </div>
+    <div className="container">
+     <ViewList/>
     </div>
 );
 
