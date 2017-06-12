@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { get_one } from '../actions/index';
+import { get_one, delete_one } from '../actions/index';
 
 class ViewTodo extends Component {
 
     componentDidMount(){
         console.log('ViewTodo props: ', this.props.match.params.id);
         this.props.get_one(this.props.match.params.id);
+    }
+
+    delete_one(){
+        this.props.delete_one(this.props.match.params.id).then(() => {
+            this.props.history.push('/');
+        });
     }
 
     render(){
@@ -22,8 +28,13 @@ class ViewTodo extends Component {
         return(
             <div>
                 <Link to="/" className="btn btn-outline-primary">Back To List</Link>
+
                 <h1>Title: { todo.title }</h1>
                 <h2>Details: { todo.details } </h2>
+                <button className="btn btn-danger" onClick={ () => {
+                    this.delete_one();
+                }
+                }>Delete</button>
             </div>
         )
     }
@@ -35,4 +46,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps, { get_one })(ViewTodo);
+export default connect(mapStateToProps, { get_one, delete_one })(ViewTodo);

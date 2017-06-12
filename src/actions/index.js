@@ -1,4 +1,4 @@
-import { FETCH_ALL, GET_ONE } from './types';
+import { FETCH_ALL, GET_ONE, DELETE_ONE } from './types';
 import axios from 'axios';
 
 
@@ -24,3 +24,13 @@ export function get_one(id){
         payload: request
     }
 }
+
+export function delete_one(id){
+    const request = axios.delete(`${BASE_URL}/todos/${id + API_KEY}`);
+
+    return {
+        type: DELETE_ONE,
+        payload: request
+    }
+}
+
