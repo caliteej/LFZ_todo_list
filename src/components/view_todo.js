@@ -23,6 +23,7 @@ class ViewTodo extends Component {
             <div>
                 <Link to="/" className="btn btn-outline-primary">Back To List</Link>
                 <h1>Title: { todo.title }</h1>
+                <h2>Details: { todo.details } </h2>
             </div>
         )
     }
