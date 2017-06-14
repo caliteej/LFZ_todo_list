@@ -14,7 +14,7 @@ class ViewList extends Component {
             return (
                 <li className="list-group-item" key={index}>
                     <Link to={ `/todo/${item._id}`}>{item.title}</Link>
-                    </li>
+                </li>
             )
         });
 

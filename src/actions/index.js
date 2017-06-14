@@ -1,4 +1,4 @@
-import { FETCH_ALL, GET_ONE, DELETE_ONE } from './types';
+import { FETCH_ALL, GET_ONE, DELETE_ONE, ADD_TODO, TOGGLE_COMPLETE } from './types';
 import axios from 'axios';
 
 
@@ -34,3 +34,23 @@ export function delete_one(id){
     }
 }
 
+
+export function add_todo(item){
+
+    const request = axios.post(`${BASE_URL}/todos${API_KEY}`, item);//post is different in that it takes in a second parameter
+
+    return {
+        type: ADD_TODO,
+        payload: request
+    }
+
+}
+
+export function toggle_complete(id){
+    const request = axios.put(`${BASE_URL}/todos/${id + API_KEY}`);
+
+    return {
+        type: TOGGLE_COMPLETE,
+        payload: request
+    }
+}

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { get_one, delete_one } from '../actions/index';
+//import { get_one, delete_one, toggle_complete } from '../actions/index'; this also imports the same files as the one below
+import * as actions from '../actions/index';
 
 class ViewTodo extends Component {
 
@@ -14,6 +15,11 @@ class ViewTodo extends Component {
         this.props.delete_one(this.props.match.params.id).then(() => {
             this.props.history.push('/');
         });
+    }
+
+    handleComplete() {
+        console.log('Toggle complete clicked');
+        this.props.toggle_complete(this.props.todo._id);
     }
 
     render(){
@@ -31,6 +37,8 @@ class ViewTodo extends Component {
 
                 <h1>Title: { todo.title }</h1>
                 <h2>Details: { todo.details } </h2>
+                <p>Item { todo.completed ? 'Completed' : 'Not Completed' }</p>
+                <button className={`btn btn-outline-${todo.completed ? `danger` : `info`}`} onClick={ () => this.handleComplete() }>{ todo.completed ? 'Restore' : 'Complete' }</button>
                 <button className="btn btn-danger" onClick={ () => {
                     this.delete_one();
                 }
@@ -46,4 +54,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps, { get_one, delete_one })(ViewTodo);
+export default connect(mapStateToProps, actions)(ViewTodo);
